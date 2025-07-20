@@ -8,7 +8,7 @@ abstract class TestCase extends BaseTestCase
 {
     /**
      * Creates the application.
-     *
+     *sdas
      * @return \Laravel\Lumen\Application
      */
     public function createApplication()
