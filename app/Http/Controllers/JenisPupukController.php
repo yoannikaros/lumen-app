@@ -62,7 +62,7 @@ class JenisPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'jenis_pupuk',
                 'record_id' => $data->id,
@@ -128,7 +128,7 @@ class JenisPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'jenis_pupuk',
                 'record_id' => $data->id,
@@ -172,7 +172,7 @@ class JenisPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'jenis_pupuk',
                 'record_id' => $id,

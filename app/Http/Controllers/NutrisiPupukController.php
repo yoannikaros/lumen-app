@@ -78,14 +78,14 @@ class NutrisiPupukController extends Controller
                 'suhu_air' => $request->suhu_air,
                 'kondisi_cuaca' => $request->kondisi_cuaca,
                 'keterangan' => $request->keterangan,
-                'user_id' => $request->auth->user_id
+                'user_id' => $request->auth->id
             ]);
 
             $data->load(['area', 'user']);
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'nutrisi_pupuk',
                 'record_id' => $data->id,
@@ -167,7 +167,7 @@ class NutrisiPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'nutrisi_pupuk',
                 'record_id' => $data->id,
@@ -201,7 +201,7 @@ class NutrisiPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'nutrisi_pupuk',
                 'record_id' => $id,

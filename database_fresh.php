@@ -171,16 +171,10 @@ try {
         CREATE TABLE `jenis_pupuk` (
             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             `nama_pupuk` varchar(255) NOT NULL,
-            `merk` varchar(255) DEFAULT NULL,
-            `jenis` enum('organik','anorganik','cair','padat') NOT NULL,
-            `kandungan_n` decimal(5,2) DEFAULT NULL,
-            `kandungan_p` decimal(5,2) DEFAULT NULL,
-            `kandungan_k` decimal(5,2) DEFAULT NULL,
-            `dosis_rekomendasi` varchar(255) DEFAULT NULL,
+            `deskripsi` text DEFAULT NULL,
             `satuan` varchar(50) DEFAULT NULL,
             `harga_per_satuan` decimal(10,2) DEFAULT NULL,
-            `status` enum('aktif','nonaktif') DEFAULT 'aktif',
-            `keterangan` text DEFAULT NULL,
+            `status` enum('aktif','tidak_aktif') DEFAULT 'aktif',
             `created_at` timestamp NULL DEFAULT NULL,
             `updated_at` timestamp NULL DEFAULT NULL,
             PRIMARY KEY (`id`)
@@ -389,9 +383,9 @@ try {
     // Insert sample jenis pupuk
     echo "Inserting sample jenis pupuk...\n";
     $pdo->exec("
-        INSERT INTO `jenis_pupuk` (`nama_pupuk`, `merk`, `jenis`, `kandungan_n`, `kandungan_p`, `kandungan_k`, `dosis_rekomendasi`, `satuan`, `harga_per_satuan`, `status`, `keterangan`, `created_at`, `updated_at`) VALUES
-        ('NPK 16-16-16', 'Phonska', 'anorganik', 16.00, 16.00, 16.00, '200-300 gram per tanaman', 'kg', 15000.00, 'aktif', 'Pupuk dasar untuk pertumbuhan', NOW(), NOW()),
-        ('Pupuk Organik Cair', 'POC Nasa', 'organik', 5.00, 3.00, 2.00, '5-10 ml per liter air', 'liter', 25000.00, 'aktif', 'Pupuk organik untuk nutrisi tambahan', NOW(), NOW())
+        INSERT INTO `jenis_pupuk` (`nama_pupuk`, `deskripsi`, `satuan`, `harga_per_satuan`, `status`, `created_at`, `updated_at`) VALUES
+        ('NPK 16-16-16', 'Pupuk NPK dengan kandungan nitrogen, fosfor, dan kalium seimbang untuk pertumbuhan optimal tanaman', 'kg', 15000.00, 'aktif', NOW(), NOW()),
+        ('Pupuk Organik Cair', 'Pupuk organik cair untuk nutrisi tambahan dan meningkatkan kualitas tanah', 'liter', 25000.00, 'aktif', NOW(), NOW())
     ");
     
     echo "✓ Default data inserted successfully\n";

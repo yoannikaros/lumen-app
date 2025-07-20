@@ -85,14 +85,14 @@ class DataSayurController extends Controller
                 'jumlah_panen_kg' => $request->jumlah_panen_kg,
                 'penyebab_gagal' => $request->penyebab_gagal,
                 'keterangan' => $request->keterangan,
-                'user_id' => $request->auth->user_id
+                'user_id' => $request->auth->id
             ]);
 
             $data->load(['area', 'user']);
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'data_sayur',
                 'record_id' => $data->id,
@@ -176,7 +176,7 @@ class DataSayurController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'data_sayur',
                 'record_id' => $data->id,
@@ -210,7 +210,7 @@ class DataSayurController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'data_sayur',
                 'record_id' => $id,

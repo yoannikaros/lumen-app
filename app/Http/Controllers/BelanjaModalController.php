@@ -73,14 +73,14 @@ class BelanjaModalController extends Controller
                 'metode_pembayaran' => $request->metode_pembayaran ?? 'tunai',
                 'bukti_pembayaran' => $request->bukti_pembayaran,
                 'keterangan' => $request->keterangan,
-                'user_id' => $request->auth->user_id
+                'user_id' => $request->auth->id
             ]);
 
             $data->load('user');
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'belanja_modal',
                 'record_id' => $data->id,
@@ -158,7 +158,7 @@ class BelanjaModalController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'belanja_modal',
                 'record_id' => $data->id,
@@ -192,7 +192,7 @@ class BelanjaModalController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'belanja_modal',
                 'record_id' => $id,

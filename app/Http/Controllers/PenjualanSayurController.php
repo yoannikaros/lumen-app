@@ -81,14 +81,14 @@ class PenjualanSayurController extends Controller
                 'metode_pembayaran' => $request->metode_pembayaran ?? 'tunai',
                 'status_pembayaran' => $request->status_pembayaran ?? 'lunas',
                 'keterangan' => $request->keterangan,
-                'user_id' => $request->auth->user_id
+                'user_id' => $request->auth->id
             ]);
 
             $data->load('user');
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'penjualan_sayur',
                 'record_id' => $data->id,
@@ -169,7 +169,7 @@ class PenjualanSayurController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'penjualan_sayur',
                 'record_id' => $data->id,
@@ -203,7 +203,7 @@ class PenjualanSayurController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'penjualan_sayur',
                 'record_id' => $id,

@@ -58,14 +58,14 @@ class PencatatanPupukController extends Controller
                 'jumlah_pupuk' => $request->jumlah_pupuk,
                 'satuan' => $request->satuan ?? 'kg',
                 'keterangan' => $request->keterangan,
-                'user_id' => $request->auth->user_id
+                'user_id' => $request->auth->id
             ]);
 
             $data->load(['jenisPupuk', 'user']);
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'pencatatan_pupuk',
                 'record_id' => $data->id,
@@ -134,7 +134,7 @@ class PencatatanPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'pencatatan_pupuk',
                 'record_id' => $data->id,
@@ -168,7 +168,7 @@ class PencatatanPupukController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'pencatatan_pupuk',
                 'record_id' => $id,
