@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "sb-farm-api-collection",
+		"name": "SB Farm API",
+		"description": "Complete API collection for SB Farm management system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser\",\n    \"nama\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.data.token) {",
+									"        pm.environment.set('token', response.data.token);",
+									"        console.log('Token saved:', response.data.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "me"]
+						}
+					}
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "logout"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Area Kebun",
+			"item": [
+				{
+					"name": "Get All Area Kebun",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun?page=1&per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Area Kebun",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_area\": \"Area Kebun Utama\",\n    \"deskripsi\": \"Area kebun untuk tanaman sayuran\",\n    \"luas_m2\": 100.5,\n    \"kapasitas_tanaman\": 500,\n    \"status\": \"aktif\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun"]
+						}
+					}
+				},
+				{
+					"name": "Get Area Kebun by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Area Kebun",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_area\": \"Area Kebun Updated\",\n    \"deskripsi\": \"Area kebun updated\",\n    \"luas_m2\": 120.0,\n    \"kapasitas_tanaman\": 600,\n    \"status\": \"aktif\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Area Kebun",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Area Kebun Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/area-kebun/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "area-kebun", "summary"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Jenis Pupuk",
+			"item": [
+				{
+					"name": "Get All Jenis Pupuk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jenis-pupuk",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jenis-pupuk"]
+						}
+					}
+				},
+				{
+					"name": "Create Jenis Pupuk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_pupuk\": \"NPK 16-16-16\",\n    \"deskripsi\": \"Pupuk NPK untuk tanaman sayuran\",\n    \"satuan\": \"kg\",\n    \"harga_per_satuan\": 25000,\n    \"status\": \"aktif\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/jenis-pupuk",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jenis-pupuk"]
+						}
+					}
+				},
+				{
+					"name": "Get Active Jenis Pupuk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jenis-pupuk/active",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jenis-pupuk", "active"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pencatatan Pupuk",
+			"item": [
+				{
+					"name": "Get All Pencatatan Pupuk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pencatatan-pupuk?tanggal_dari=2024-01-01&tanggal_sampai=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pencatatan-pupuk"],
+							"query": [
+								{
+									"key": "tanggal_dari",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "tanggal_sampai",
+									"value": "2024-12-31"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Pencatatan Pupuk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal\": \"2024-01-15\",\n    \"jenis_pupuk_id\": 1,\n    \"jumlah_pupuk\": 5.5,\n    \"satuan\": \"kg\",\n    \"keterangan\": \"Pemupukan rutin area kebun utama\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pencatatan-pupuk",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pencatatan-pupuk"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Penjualan Sayur",
+			"item": [
+				{
+					"name": "Get All Penjualan Sayur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-sayur",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-sayur"]
+						}
+					}
+				},
+				{
+					"name": "Create Penjualan Sayur",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_penjualan\": \"2024-01-15\",\n    \"nama_pembeli\": \"Toko Sayur Segar\",\n    \"tipe_pembeli\": \"pasar\",\n    \"alamat_pembeli\": \"Jl. Pasar Raya No. 123\",\n    \"jenis_sayur\": \"Selada Hijau\",\n    \"jumlah_kg\": 5.5,\n    \"harga_per_kg\": 15000,\n    \"metode_pembayaran\": \"tunai\",\n    \"status_pembayaran\": \"lunas\",\n    \"keterangan\": \"Penjualan rutin ke pasar\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-sayur",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-sayur"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Belanja Modal",
+			"item": [
+				{
+					"name": "Get All Belanja Modal",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/belanja-modal",
+							"host": ["{{base_url}}"],
+							"path": ["api", "belanja-modal"]
+						}
+					}
+				},
+				{
+					"name": "Create Belanja Modal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_belanja\": \"2024-01-15\",\n    \"kategori\": \"benih\",\n    \"deskripsi\": \"Benih selada varietas unggul\",\n    \"jumlah\": 1000,\n    \"satuan\": \"biji\",\n    \"nama_toko\": \"Toko Pertanian Maju\",\n    \"alamat_toko\": \"Jl. Pertanian No. 456\",\n    \"metode_pembayaran\": \"tunai\",\n    \"bukti_pembayaran\": \"Nota pembelian #001\",\n    \"keterangan\": \"Pembelian benih untuk musim tanam baru\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/belanja-modal",
+							"host": ["{{base_url}}"],
+							"path": ["api", "belanja-modal"]
+						}
+					}
+				},
+				{
+					"name": "Get Kategori Belanja Modal",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/belanja-modal/kategori",
+							"host": ["{{base_url}}"],
+							"path": ["api", "belanja-modal", "kategori"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-add Authorization header if token exists",
+					"if (pm.environment.get('token') && !pm.request.headers.has('Authorization')) {",
+					"    pm.request.headers.add({",
+					"        key: 'Authorization',",
+					"        value: 'Bearer ' + pm.environment.get('token')",
+					"    });",
+					"}",
+					"",
+					"// Auto-add Content-Type and Accept headers",
+					"if (!pm.request.headers.has('Accept')) {",
+					"    pm.request.headers.add({",
+					"        key: 'Accept',",
+					"        value: 'application/json'",
+					"    });",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
