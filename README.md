@@ -1,5 +1,6 @@
 # SB Farm API
 php -S localhost:8000 -t public
+php database_fresh.php
 API untuk sistem manajemen kebun SB Farm yang dibangun dengan Lumen Framework.
 
 ## Fitur

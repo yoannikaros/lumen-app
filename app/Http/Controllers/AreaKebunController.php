@@ -62,7 +62,7 @@ class AreaKebunController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'create',
                 'table_name' => 'area_kebun',
                 'record_id' => $data->id,
@@ -128,7 +128,7 @@ class AreaKebunController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'update',
                 'table_name' => 'area_kebun',
                 'record_id' => $data->id,
@@ -173,7 +173,7 @@ class AreaKebunController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => $request->auth->user_id,
+                'user_id' => $request->auth->id,
                 'action' => 'delete',
                 'table_name' => 'area_kebun',
                 'record_id' => $id,

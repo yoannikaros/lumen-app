@@ -155,12 +155,10 @@ try {
         CREATE TABLE `area_kebun` (
             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             `nama_area` varchar(255) NOT NULL,
-            `luas_area` decimal(8,2) NOT NULL,
-            `satuan_luas` varchar(50) DEFAULT 'm2',
-            `lokasi` text DEFAULT NULL,
-            `jenis_tanah` varchar(100) DEFAULT NULL,
-            `status` enum('aktif','nonaktif') DEFAULT 'aktif',
-            `keterangan` text DEFAULT NULL,
+            `deskripsi` text DEFAULT NULL,
+            `luas_m2` decimal(8,2) DEFAULT NULL,
+            `kapasitas_tanaman` int(11) DEFAULT NULL,
+            `status` enum('aktif','tidak_aktif') DEFAULT 'aktif',
             `created_at` timestamp NULL DEFAULT NULL,
             `updated_at` timestamp NULL DEFAULT NULL,
             PRIMARY KEY (`id`)
@@ -383,9 +381,9 @@ try {
     // Insert sample area kebun
     echo "Inserting sample area kebun...\n";
     $pdo->exec("
-        INSERT INTO `area_kebun` (`nama_area`, `luas_area`, `satuan_luas`, `lokasi`, `jenis_tanah`, `status`, `keterangan`, `created_at`, `updated_at`) VALUES
-        ('Area A', 100.00, 'm2', 'Bagian depan kebun', 'Tanah liat', 'aktif', 'Area utama untuk sayuran hijau', NOW(), NOW()),
-        ('Area B', 150.00, 'm2', 'Bagian belakang kebun', 'Tanah humus', 'aktif', 'Area untuk sayuran buah', NOW(), NOW())
+        INSERT INTO `area_kebun` (`nama_area`, `deskripsi`, `luas_m2`, `kapasitas_tanaman`, `status`, `created_at`, `updated_at`) VALUES
+        ('Area A', 'Area utama untuk sayuran hijau di bagian depan kebun', 100.00, 500, 'aktif', NOW(), NOW()),
+        ('Area B', 'Area untuk sayuran buah di bagian belakang kebun', 150.00, 750, 'aktif', NOW(), NOW())
     ");
     
     // Insert sample jenis pupuk
