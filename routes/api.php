@@ -108,4 +108,97 @@ $router->group(['prefix' => 'api', 'middleware' => 'jwt.auth'], function () use 
         $router->delete('/{id}', 'JenisPupukController@destroy');
     });
     
+    // Tandon Routes
+    $router->group(['prefix' => 'tandon'], function () use ($router) {
+        $router->get('/', 'TandonController@index');
+        $router->post('/', 'TandonController@store');
+        $router->get('/area/{areaId}', 'TandonController@getByArea');
+        $router->get('/{id}', 'TandonController@show');
+        $router->put('/{id}', 'TandonController@update');
+        $router->delete('/{id}', 'TandonController@destroy');
+    });
+    
+    // Nutrisi Pupuk Detail Routes
+    $router->group(['prefix' => 'nutrisi-pupuk-detail'], function () use ($router) {
+        $router->get('/', 'NutrisiPupukDetailController@index');
+        $router->post('/', 'NutrisiPupukDetailController@store');
+        $router->get('/nutrisi-pupuk/{nutrisiPupukId}', 'NutrisiPupukDetailController@getByNutrisiPupuk');
+        $router->get('/{id}', 'NutrisiPupukDetailController@show');
+        $router->put('/{id}', 'NutrisiPupukDetailController@update');
+        $router->delete('/{id}', 'NutrisiPupukDetailController@destroy');
+    });
+    
+    // Seed Log Routes
+    $router->group(['prefix' => 'seed-log'], function () use ($router) {
+        $router->get('/', 'SeedLogController@index');
+        $router->post('/', 'SeedLogController@store');
+        $router->get('/summary', 'SeedLogController@summary');
+        $router->get('/by-data-sayur/{dataSayurId}', 'SeedLogController@getByDataSayur');
+        $router->get('/{id}', 'SeedLogController@show');
+        $router->put('/{id}', 'SeedLogController@update');
+        $router->delete('/{id}', 'SeedLogController@destroy');
+    });
+    
+    // Plant Health Log Routes
+    $router->group(['prefix' => 'plant-health-log'], function () use ($router) {
+        $router->get('/', 'PlantHealthLogController@index');
+        $router->post('/', 'PlantHealthLogController@store');
+        $router->get('/summary', 'PlantHealthLogController@summary');
+        $router->get('/health-stats', 'PlantHealthLogController@getHealthStats');
+        $router->get('/by-data-sayur/{dataSayurId}', 'PlantHealthLogController@getByDataSayur');
+        $router->get('/{id}', 'PlantHealthLogController@show');
+        $router->put('/{id}', 'PlantHealthLogController@update');
+        $router->delete('/{id}', 'PlantHealthLogController@destroy');
+    });
+
+    // Perlakuan Master Routes
+    $router->group(['prefix' => 'perlakuan-master'], function () use ($router) {
+        $router->get('/', 'PerlakuanMasterController@index');
+        $router->post('/', 'PerlakuanMasterController@store');
+        $router->get('/summary', 'PerlakuanMasterController@summary');
+        $router->get('/by-tipe/{tipe}', 'PerlakuanMasterController@getByTipe');
+        $router->get('/{id}', 'PerlakuanMasterController@show');
+        $router->put('/{id}', 'PerlakuanMasterController@update');
+        $router->delete('/{id}', 'PerlakuanMasterController@destroy');
+    });
+
+    // Jadwal Perlakuan Routes
+    $router->group(['prefix' => 'jadwal-perlakuan'], function () use ($router) {
+        $router->get('/', 'JadwalPerlakuanController@index');
+        $router->post('/', 'JadwalPerlakuanController@store');
+        $router->get('/summary', 'JadwalPerlakuanController@summary');
+        $router->get('/rotation-schedule', 'JadwalPerlakuanController@getRotationSchedule');
+        $router->get('/by-month/{year}/{month}', 'JadwalPerlakuanController@getByMonth');
+        $router->get('/by-area/{areaId}', 'JadwalPerlakuanController@getByArea');
+        $router->get('/by-perlakuan/{perlakuanId}', 'JadwalPerlakuanController@getByPerlakuan');
+        $router->get('/{id}', 'JadwalPerlakuanController@show');
+        $router->put('/{id}', 'JadwalPerlakuanController@update');
+        $router->delete('/{id}', 'JadwalPerlakuanController@destroy');
+    });
+    
+    // Pembelian Benih Detail Routes
+    $router->group(['prefix' => 'pembelian-benih-detail'], function () use ($router) {
+        $router->get('/', 'PembelianBenihDetailController@index');
+        $router->post('/', 'PembelianBenihDetailController@store');
+        $router->get('/summary', 'PembelianBenihDetailController@summary');
+        $router->get('/price-analysis', 'PembelianBenihDetailController@getPriceAnalysis');
+        $router->get('/belanja-modal/{belanja_modal_id}', 'PembelianBenihDetailController@getByBelanjaModal');
+        $router->get('/{id}', 'PembelianBenihDetailController@show');
+        $router->put('/{id}', 'PembelianBenihDetailController@update');
+        $router->delete('/{id}', 'PembelianBenihDetailController@destroy');
+    });
+
+    // Penjualan Detail Batch Routes
+    $router->group(['prefix' => 'penjualan-detail-batch'], function () use ($router) {
+        $router->get('/', 'PenjualanDetailBatchController@index');
+        $router->post('/', 'PenjualanDetailBatchController@store');
+        $router->get('/summary', 'PenjualanDetailBatchController@summary');
+        $router->get('/batch-performance', 'PenjualanDetailBatchController@getBatchPerformance');
+        $router->get('/penjualan/{penjualan_id}', 'PenjualanDetailBatchController@getByPenjualan');
+        $router->get('/data-sayur/{data_sayur_id}', 'PenjualanDetailBatchController@getByDataSayur');
+        $router->get('/{id}', 'PenjualanDetailBatchController@show');
+        $router->put('/{id}', 'PenjualanDetailBatchController@update');
+        $router->delete('/{id}', 'PenjualanDetailBatchController@destroy');
+    });
+    
 });

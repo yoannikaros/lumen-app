@@ -52,25 +52,37 @@ class NutrisiPupukController extends Controller
         $this->validate($request, [
             'tanggal_pencatatan' => 'required|date',
             'area_id' => 'required|exists:area_kebun,id',
-            'jumlah_tanda_air' => 'required|numeric|min:0',
-            'jumlah_pupuk' => 'required|numeric|min:0',
-            'jumlah_air' => 'required|numeric|min:0',
+            'total_tandon' => 'nullable|integer|min:0',
+            'flag_data_detail' => 'nullable|boolean',
+            'jumlah_tandon_air' => 'required|numeric|min:0',
+            'jumlah_pupuk_ml' => 'required|numeric|min:0',
+            'jumlah_air_liter' => 'required|numeric|min:0',
             'ppm_sebelum' => 'nullable|numeric|min:0',
             'ppm_sesudah' => 'nullable|numeric|min:0',
             'ph_sebelum' => 'nullable|numeric|min:0|max:14',
             'ph_sesudah' => 'nullable|numeric|min:0|max:14',
             'suhu_air' => 'nullable|numeric',
             'kondisi_cuaca' => 'nullable|in:cerah,berawan,hujan,mendung',
-            'keterangan' => 'nullable|string'
+            'keterangan' => 'nullable|string',
+            'detail_tandon' => 'nullable|array',
+            'detail_tandon.*.tandon_id' => 'required_with:detail_tandon|exists:tandon,id',
+            'detail_tandon.*.ppm' => 'nullable|numeric|min:0',
+            'detail_tandon.*.nutrisi_ditambah_ml' => 'nullable|numeric|min:0',
+            'detail_tandon.*.air_ditambah_liter' => 'nullable|numeric|min:0',
+            'detail_tandon.*.ph' => 'nullable|numeric|min:0|max:14',
+            'detail_tandon.*.suhu_air' => 'nullable|numeric',
+            'detail_tandon.*.keterangan' => 'nullable|string'
         ]);
 
         try {
             $data = NutrisiPupuk::create([
                 'tanggal_pencatatan' => $request->tanggal_pencatatan,
                 'area_id' => $request->area_id,
-                'jumlah_tanda_air' => $request->jumlah_tanda_air,
-                'jumlah_pupuk' => $request->jumlah_pupuk,
-                'jumlah_air' => $request->jumlah_air,
+                'total_tandon' => $request->total_tandon,
+                'flag_data_detail' => $request->flag_data_detail ?? false,
+                'jumlah_tandon_air' => $request->jumlah_tandon_air,
+                'jumlah_pupuk_ml' => $request->jumlah_pupuk_ml,
+                'jumlah_air_liter' => $request->jumlah_air_liter,
                 'ppm_sebelum' => $request->ppm_sebelum,
                 'ppm_sesudah' => $request->ppm_sesudah,
                 'ph_sebelum' => $request->ph_sebelum,
@@ -80,6 +92,22 @@ class NutrisiPupukController extends Controller
                 'keterangan' => $request->keterangan,
                 'user_id' => $request->auth->id
             ]);
+
+            // Save detail per tandon if provided
+            if ($request->has('detail_tandon') && is_array($request->detail_tandon)) {
+                foreach ($request->detail_tandon as $detail) {
+                    $data->nutrisiPupukDetail()->create([
+                        'tandon_id' => $detail['tandon_id'],
+                        'ppm' => $detail['ppm'] ?? null,
+                        'nutrisi_ditambah_ml' => $detail['nutrisi_ditambah_ml'] ?? null,
+                        'air_ditambah_liter' => $detail['air_ditambah_liter'] ?? null,
+                        'ph' => $detail['ph'] ?? null,
+                        'suhu_air' => $detail['suhu_air'] ?? null,
+                        'keterangan' => $detail['keterangan'] ?? null
+                    ]);
+                }
+                $data->update(['flag_data_detail' => true]);
+            }
 
             $data->load(['area', 'user']);
 
@@ -112,7 +140,7 @@ class NutrisiPupukController extends Controller
     public function show($id)
     {
         try {
-            $data = NutrisiPupuk::with(['area', 'user'])->findOrFail($id);
+            $data = NutrisiPupuk::with(['area', 'user', 'nutrisiPupukDetail.tandon'])->findOrFail($id);
 
             return response()->json([
                 'success' => true,
@@ -132,16 +160,26 @@ class NutrisiPupukController extends Controller
         $this->validate($request, [
             'tanggal_pencatatan' => 'required|date',
             'area_id' => 'required|exists:area_kebun,id',
-            'jumlah_tanda_air' => 'required|numeric|min:0',
-            'jumlah_pupuk' => 'required|numeric|min:0',
-            'jumlah_air' => 'required|numeric|min:0',
+            'total_tandon' => 'nullable|integer|min:0',
+            'flag_data_detail' => 'nullable|boolean',
+            'jumlah_tandon_air' => 'required|numeric|min:0',
+            'jumlah_pupuk_ml' => 'required|numeric|min:0',
+            'jumlah_air_liter' => 'required|numeric|min:0',
             'ppm_sebelum' => 'nullable|numeric|min:0',
             'ppm_sesudah' => 'nullable|numeric|min:0',
             'ph_sebelum' => 'nullable|numeric|min:0|max:14',
             'ph_sesudah' => 'nullable|numeric|min:0|max:14',
             'suhu_air' => 'nullable|numeric',
             'kondisi_cuaca' => 'nullable|in:cerah,berawan,hujan,mendung',
-            'keterangan' => 'nullable|string'
+            'keterangan' => 'nullable|string',
+            'detail_tandon' => 'nullable|array',
+            'detail_tandon.*.tandon_id' => 'required_with:detail_tandon|exists:tandon,id',
+            'detail_tandon.*.ppm' => 'nullable|numeric|min:0',
+            'detail_tandon.*.nutrisi_ditambah_ml' => 'nullable|numeric|min:0',
+            'detail_tandon.*.air_ditambah_liter' => 'nullable|numeric|min:0',
+            'detail_tandon.*.ph' => 'nullable|numeric|min:0|max:14',
+            'detail_tandon.*.suhu_air' => 'nullable|numeric',
+            'detail_tandon.*.keterangan' => 'nullable|string'
         ]);
 
         try {
@@ -151,9 +189,11 @@ class NutrisiPupukController extends Controller
             $data->update([
                 'tanggal_pencatatan' => $request->tanggal_pencatatan,
                 'area_id' => $request->area_id,
-                'jumlah_tanda_air' => $request->jumlah_tanda_air,
-                'jumlah_pupuk' => $request->jumlah_pupuk,
-                'jumlah_air' => $request->jumlah_air,
+                'total_tandon' => $request->total_tandon,
+                'flag_data_detail' => $request->flag_data_detail ?? false,
+                'jumlah_tandon_air' => $request->jumlah_tandon_air,
+                'jumlah_pupuk_ml' => $request->jumlah_pupuk_ml,
+                'jumlah_air_liter' => $request->jumlah_air_liter,
                 'ppm_sebelum' => $request->ppm_sebelum,
                 'ppm_sesudah' => $request->ppm_sesudah,
                 'ph_sebelum' => $request->ph_sebelum,
@@ -162,6 +202,26 @@ class NutrisiPupukController extends Controller
                 'kondisi_cuaca' => $request->kondisi_cuaca,
                 'keterangan' => $request->keterangan
             ]);
+
+            // Update detail per tandon
+            if ($request->has('detail_tandon') && is_array($request->detail_tandon)) {
+                // Delete existing details
+                $data->nutrisiPupukDetail()->delete();
+                
+                // Create new details
+                foreach ($request->detail_tandon as $detail) {
+                    $data->nutrisiPupukDetail()->create([
+                        'tandon_id' => $detail['tandon_id'],
+                        'ppm' => $detail['ppm'] ?? null,
+                        'nutrisi_ditambah_ml' => $detail['nutrisi_ditambah_ml'] ?? null,
+                        'air_ditambah_liter' => $detail['air_ditambah_liter'] ?? null,
+                        'ph' => $detail['ph'] ?? null,
+                        'suhu_air' => $detail['suhu_air'] ?? null,
+                        'keterangan' => $detail['keterangan'] ?? null
+                    ]);
+                }
+                $data->update(['flag_data_detail' => true]);
+            }
 
             $data->load(['area', 'user']);
 

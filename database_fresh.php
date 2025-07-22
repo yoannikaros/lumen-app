@@ -308,7 +308,106 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
     
-    // 13. Activity Logs table
+    // 13. Tandon table
+    echo "Creating tandon table...\n";
+    $pdo->exec("
+        CREATE TABLE `tandon` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `nama_tandon` varchar(255) NOT NULL,
+            `kapasitas_liter` decimal(10,2) NOT NULL,
+            `lokasi` varchar(255) DEFAULT NULL,
+            `status` enum('aktif','tidak_aktif','maintenance') DEFAULT 'aktif',
+            `keterangan` text DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    
+    // 14. Perlakuan Master table
+    echo "Creating perlakuan_master table...\n";
+    $pdo->exec("
+        CREATE TABLE `perlakuan_master` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `nama_perlakuan` varchar(255) NOT NULL,
+            `tipe` enum('pemupukan','penyiraman','pestisida','perawatan','lainnya') NOT NULL,
+            `deskripsi` text DEFAULT NULL,
+            `satuan_default` varchar(50) DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    
+    // 15. Jadwal Perlakuan table
+    echo "Creating jadwal_perlakuan table...\n";
+    $pdo->exec("
+        CREATE TABLE `jadwal_perlakuan` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `tanggal` date NOT NULL,
+            `minggu_ke` int(11) NOT NULL,
+            `hari_dalam_minggu` int(11) NOT NULL,
+            `area_id` bigint(20) unsigned NOT NULL,
+            `tandon_id` bigint(20) unsigned NOT NULL,
+            `perlakuan_id` bigint(20) unsigned NOT NULL,
+            `dosis` decimal(8,2) NOT NULL,
+            `satuan` varchar(50) NOT NULL,
+            `keterangan` text DEFAULT NULL,
+            `user_id` bigint(20) unsigned NOT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `jadwal_perlakuan_area_id_foreign` (`area_id`),
+            KEY `jadwal_perlakuan_tandon_id_foreign` (`tandon_id`),
+            KEY `jadwal_perlakuan_perlakuan_id_foreign` (`perlakuan_id`),
+            KEY `jadwal_perlakuan_user_id_foreign` (`user_id`),
+            CONSTRAINT `jadwal_perlakuan_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `area_kebun` (`id`) ON DELETE CASCADE,
+            CONSTRAINT `jadwal_perlakuan_tandon_id_foreign` FOREIGN KEY (`tandon_id`) REFERENCES `tandon` (`id`) ON DELETE CASCADE,
+            CONSTRAINT `jadwal_perlakuan_perlakuan_id_foreign` FOREIGN KEY (`perlakuan_id`) REFERENCES `perlakuan_master` (`id`) ON DELETE CASCADE,
+            CONSTRAINT `jadwal_perlakuan_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    
+    // 16. Pembelian Benih Detail table
+    echo "Creating pembelian_benih_detail table...\n";
+    $pdo->exec("
+        CREATE TABLE `pembelian_benih_detail` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `belanja_modal_id` bigint(20) unsigned NOT NULL,
+            `nama_benih` varchar(255) NOT NULL,
+            `varietas` varchar(255) DEFAULT NULL,
+            `qty` decimal(8,2) NOT NULL,
+            `unit` varchar(50) NOT NULL,
+            `harga_per_unit` decimal(10,2) NOT NULL,
+            `keterangan` text DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `pembelian_benih_detail_belanja_modal_id_foreign` (`belanja_modal_id`),
+            CONSTRAINT `pembelian_benih_detail_belanja_modal_id_foreign` FOREIGN KEY (`belanja_modal_id`) REFERENCES `belanja_modal` (`id`) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    
+    // 17. Penjualan Detail Batch table
+    echo "Creating penjualan_detail_batch table...\n";
+    $pdo->exec("
+        CREATE TABLE `penjualan_detail_batch` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `penjualan_id` bigint(20) unsigned NOT NULL,
+            `data_sayur_id` bigint(20) unsigned NOT NULL,
+            `qty_kg` decimal(8,2) NOT NULL,
+            `keterangan` text DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `penjualan_detail_batch_penjualan_id_foreign` (`penjualan_id`),
+            KEY `penjualan_detail_batch_data_sayur_id_foreign` (`data_sayur_id`),
+            CONSTRAINT `penjualan_detail_batch_penjualan_id_foreign` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan_sayur` (`id`) ON DELETE CASCADE,
+            CONSTRAINT `penjualan_detail_batch_data_sayur_id_foreign` FOREIGN KEY (`data_sayur_id`) REFERENCES `data_sayur` (`id`) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    
+    // 18. Activity Logs table
     echo "Creating activity_logs table...\n";
     $pdo->exec("
         CREATE TABLE `activity_logs` (
@@ -386,6 +485,25 @@ try {
         INSERT INTO `jenis_pupuk` (`nama_pupuk`, `deskripsi`, `satuan`, `harga_per_satuan`, `status`, `created_at`, `updated_at`) VALUES
         ('NPK 16-16-16', 'Pupuk NPK dengan kandungan nitrogen, fosfor, dan kalium seimbang untuk pertumbuhan optimal tanaman', 'kg', 15000.00, 'aktif', NOW(), NOW()),
         ('Pupuk Organik Cair', 'Pupuk organik cair untuk nutrisi tambahan dan meningkatkan kualitas tanah', 'liter', 25000.00, 'aktif', NOW(), NOW())
+    ");
+    
+    // Insert sample tandon
+    echo "Inserting sample tandon...\n";
+    $pdo->exec("
+        INSERT INTO `tandon` (`nama_tandon`, `kapasitas_liter`, `lokasi`, `status`, `keterangan`, `created_at`, `updated_at`) VALUES
+        ('Tandon Utama', 1000.00, 'Bagian tengah kebun', 'aktif', 'Tandon utama untuk penyiraman area A dan B', NOW(), NOW()),
+        ('Tandon Cadangan', 500.00, 'Bagian belakang kebun', 'aktif', 'Tandon cadangan untuk area B', NOW(), NOW())
+    ");
+    
+    // Insert sample perlakuan master
+    echo "Inserting sample perlakuan master...\n";
+    $pdo->exec("
+        INSERT INTO `perlakuan_master` (`nama_perlakuan`, `tipe`, `deskripsi`, `satuan_default`, `created_at`, `updated_at`) VALUES
+        ('Penyiraman Rutin', 'penyiraman', 'Penyiraman rutin untuk menjaga kelembaban tanah', 'liter', NOW(), NOW()),
+        ('Pemupukan NPK', 'pemupukan', 'Pemberian pupuk NPK untuk nutrisi tanaman', 'gram', NOW(), NOW()),
+        ('Penyemprotan Pestisida', 'pestisida', 'Penyemprotan pestisida untuk mengendalikan hama', 'ml', NOW(), NOW()),
+        ('Pembersihan Gulma', 'perawatan', 'Pembersihan gulma di sekitar tanaman', 'area', NOW(), NOW()),
+        ('Pemupukan Organik', 'pemupukan', 'Pemberian pupuk organik cair', 'ml', NOW(), NOW())
     ");
     
     echo "✓ Default data inserted successfully\n";

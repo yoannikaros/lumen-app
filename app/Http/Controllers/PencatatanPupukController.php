@@ -11,7 +11,7 @@ class PencatatanPupukController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = PencatatanPupuk::with(['jenisPupuk', 'user']);
+            $query = PencatatanPupuk::with(['jenisPupuk', 'user', 'area', 'tandon']);
 
             // Filter by date range
             if ($request->has('tanggal_mulai') && $request->has('tanggal_selesai')) {
@@ -45,23 +45,31 @@ class PencatatanPupukController extends Controller
     {
         $this->validate($request, [
             'tanggal' => 'required|date',
+            'area_id' => 'nullable|exists:area_kebun,id',
+            'tandon_id' => 'nullable|exists:tandon,id',
             'jenis_pupuk_id' => 'required|exists:jenis_pupuk,id',
             'jumlah_pupuk' => 'required|numeric|min:0',
             'satuan' => 'nullable|string',
+            'bentuk' => 'nullable|in:padat,larutan,lainnya',
+            'volume_liter' => 'nullable|numeric|min:0',
             'keterangan' => 'nullable|string'
         ]);
 
         try {
             $data = PencatatanPupuk::create([
                 'tanggal' => $request->tanggal,
+                'area_id' => $request->area_id,
+                'tandon_id' => $request->tandon_id,
                 'jenis_pupuk_id' => $request->jenis_pupuk_id,
                 'jumlah_pupuk' => $request->jumlah_pupuk,
                 'satuan' => $request->satuan ?? 'kg',
+                'bentuk' => $request->bentuk ?? 'padat',
+                'volume_liter' => $request->volume_liter,
                 'keterangan' => $request->keterangan,
                 'user_id' => $request->auth->id
             ]);
 
-            $data->load(['jenisPupuk', 'user']);
+            $data->load(['jenisPupuk', 'user', 'area', 'tandon']);
 
             // Log activity
             ActivityLog::create([
@@ -92,7 +100,7 @@ class PencatatanPupukController extends Controller
     public function show($id)
     {
         try {
-            $data = PencatatanPupuk::with(['jenisPupuk', 'user'])->findOrFail($id);
+            $data = PencatatanPupuk::with(['jenisPupuk', 'user', 'area', 'tandon'])->findOrFail($id);
 
             return response()->json([
                 'success' => true,
@@ -111,9 +119,13 @@ class PencatatanPupukController extends Controller
     {
         $this->validate($request, [
             'tanggal' => 'required|date',
+            'area_id' => 'nullable|exists:area_kebun,id',
+            'tandon_id' => 'nullable|exists:tandon,id',
             'jenis_pupuk_id' => 'required|exists:jenis_pupuk,id',
             'jumlah_pupuk' => 'required|numeric|min:0',
             'satuan' => 'nullable|string',
+            'bentuk' => 'nullable|in:padat,larutan,lainnya',
+            'volume_liter' => 'nullable|numeric|min:0',
             'keterangan' => 'nullable|string'
         ]);
 
@@ -124,13 +136,17 @@ class PencatatanPupukController extends Controller
             
             $data->update([
                 'tanggal' => $request->tanggal,
+                'area_id' => $request->area_id,
+                'tandon_id' => $request->tandon_id,
                 'jenis_pupuk_id' => $request->jenis_pupuk_id,
                 'jumlah_pupuk' => $request->jumlah_pupuk,
                 'satuan' => $request->satuan ?? 'kg',
+                'bentuk' => $request->bentuk ?? 'padat',
+                'volume_liter' => $request->volume_liter,
                 'keterangan' => $request->keterangan
             ]);
 
-            $data->load(['jenisPupuk', 'user']);
+            $data->load(['jenisPupuk', 'user', 'area', 'tandon']);
 
             // Log activity
             ActivityLog::create([

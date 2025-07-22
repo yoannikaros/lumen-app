@@ -479,6 +479,425 @@
 			]
 		},
 		{
+			"name": "Nutrisi Pupuk",
+			"item": [
+				{
+					"name": "Get All Nutrisi Pupuk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk?tanggal_mulai=2024-01-01&tanggal_selesai=2024-12-31&area_id=1&kondisi_cuaca=cerah",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk"],
+							"query": [
+								{
+									"key": "tanggal_mulai",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "tanggal_selesai",
+									"value": "2024-12-31",
+									"disabled": true
+								},
+								{
+									"key": "area_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "kondisi_cuaca",
+									"value": "cerah",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Nutrisi Pupuk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_pencatatan\": \"2024-01-15\",\n    \"area_id\": 1,\n    \"jumlah_tanda_air\": 50.5,\n    \"jumlah_pupuk\": 120.0,\n    \"jumlah_air\": 100.0,\n    \"ppm_sebelum\": 800,\n    \"ppm_sesudah\": 1200,\n    \"ph_sebelum\": 6.0,\n    \"ph_sesudah\": 6.5,\n    \"suhu_air\": 25.5,\n    \"kondisi_cuaca\": \"cerah\",\n    \"keterangan\": \"Pemberian nutrisi rutin untuk area kebun utama\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk"]
+						}
+					}
+				},
+				{
+					"name": "Get Nutrisi Pupuk by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Nutrisi Pupuk",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_pencatatan\": \"2024-01-15\",\n    \"area_id\": 1,\n    \"jumlah_tanda_air\": 55.0,\n    \"jumlah_pupuk\": 130.0,\n    \"jumlah_air\": 110.0,\n    \"ppm_sebelum\": 850,\n    \"ppm_sesudah\": 1300,\n    \"ph_sebelum\": 6.2,\n    \"ph_sesudah\": 6.8,\n    \"suhu_air\": 26.0,\n    \"kondisi_cuaca\": \"berawan\",\n    \"keterangan\": \"Update pemberian nutrisi - kondisi optimal\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Nutrisi Pupuk",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Nutrisi Pupuk Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk/summary?tanggal_mulai=2024-01-01&tanggal_selesai=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk", "summary"],
+							"query": [
+								{
+									"key": "tanggal_mulai",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "tanggal_selesai",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Active Areas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nutrisi-pupuk/areas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "nutrisi-pupuk", "areas"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Data Sayur",
+			"item": [
+				{
+					"name": "Get All Data Sayur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur?tanggal_tanam_mulai=2024-01-01&tanggal_tanam_selesai=2024-12-31&jenis_sayur=selada&area_id=1&status_panen=belum_panen",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur"],
+							"query": [
+								{
+									"key": "tanggal_tanam_mulai",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "tanggal_tanam_selesai",
+									"value": "2024-12-31",
+									"disabled": true
+								},
+								{
+									"key": "jenis_sayur",
+									"value": "selada",
+									"disabled": true
+								},
+								{
+									"key": "area_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status_panen",
+									"value": "belum_panen",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Data Sayur",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_tanam\": \"2024-01-15\",\n    \"jenis_sayur\": \"Selada Hijau\",\n    \"varietas\": \"Grand Rapids\",\n    \"area_id\": 1,\n    \"jumlah_bibit\": 100,\n    \"metode_tanam\": \"hidroponik\",\n    \"jenis_media\": \"rockwool\",\n    \"tanggal_panen_target\": \"2024-02-15\",\n    \"status_panen\": \"belum_panen\",\n    \"keterangan\": \"Penanaman selada varietas unggul untuk musim ini\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur"]
+						}
+					}
+				},
+				{
+					"name": "Get Data Sayur by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Data Sayur",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal_tanam\": \"2024-01-15\",\n    \"jenis_sayur\": \"Selada Hijau\",\n    \"varietas\": \"Grand Rapids\",\n    \"area_id\": 1,\n    \"jumlah_bibit\": 100,\n    \"metode_tanam\": \"hidroponik\",\n    \"jenis_media\": \"rockwool\",\n    \"tanggal_panen_target\": \"2024-02-15\",\n    \"tanggal_panen_aktual\": \"2024-02-14\",\n    \"status_panen\": \"panen_sukses\",\n    \"jumlah_panen_kg\": 15.5,\n    \"keterangan\": \"Panen berhasil dengan hasil memuaskan\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Data Sayur",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Data Sayur Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur/summary?tanggal_tanam_mulai=2024-01-01&tanggal_tanam_selesai=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur", "summary"],
+							"query": [
+								{
+									"key": "tanggal_tanam_mulai",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "tanggal_tanam_selesai",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Active Areas for Data Sayur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/data-sayur/areas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "data-sayur", "areas"]
+						}
+					}
+				}
+			]
+		},
+		{
 			"name": "Belanja Modal",
 			"item": [
 				{
@@ -549,6 +968,971 @@
 							"raw": "{{base_url}}/api/belanja-modal/kategori",
 							"host": ["{{base_url}}"],
 							"path": ["api", "belanja-modal", "kategori"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pembelian Benih Detail",
+			"item": [
+				{
+					"name": "Get All Pembelian Benih Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail?page=1&per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "belanja_modal_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "nama_benih",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "unit",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Pembelian Benih Detail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"belanja_modal_id\": 1,\n    \"nama_benih\": \"Selada Hijau\",\n    \"varietas\": \"Grand Rapids\",\n    \"qty\": 100,\n    \"unit\": \"gram\",\n    \"harga_per_unit\": 50000,\n    \"keterangan\": \"Benih berkualitas tinggi\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail"]
+						}
+					}
+				},
+				{
+					"name": "Get Pembelian Benih Detail by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Pembelian Benih Detail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_benih\": \"Selada Merah\",\n    \"varietas\": \"Red Sails\",\n    \"qty\": 150,\n    \"harga_per_unit\": 55000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Pembelian Benih Detail",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get by Belanja Modal",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/belanja-modal/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "belanja-modal", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/summary?start_date=2024-01-01&end_date=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "summary"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Price Analysis",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pembelian-benih-detail/price-analysis?nama_benih=Selada&unit=gram",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pembelian-benih-detail", "price-analysis"],
+							"query": [
+								{
+									"key": "nama_benih",
+									"value": "Selada",
+									"disabled": true
+								},
+								{
+									"key": "unit",
+									"value": "gram",
+									"disabled": true
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Penjualan Detail Batch",
+			"item": [
+				{
+					"name": "Get All Penjualan Detail Batch",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch?page=1&per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "penjualan_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "data_sayur_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "jenis_sayur",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Penjualan Detail Batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"penjualan_id\": 1,\n    \"data_sayur_id\": 1,\n    \"qty_kg\": 5.5,\n    \"keterangan\": \"Penjualan batch selada hijau\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch"]
+						}
+					}
+				},
+				{
+					"name": "Get Penjualan Detail Batch by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Penjualan Detail Batch",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"qty_kg\": 6.0,\n    \"keterangan\": \"Update quantity penjualan\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Penjualan Detail Batch",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get by Penjualan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/penjualan/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "penjualan", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get by Data Sayur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/data-sayur/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "data-sayur", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/summary?start_date=2024-01-01&end_date=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "summary"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Batch Performance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/penjualan-detail-batch/batch-performance?start_date=2024-01-01&end_date=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "penjualan-detail-batch", "batch-performance"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Perlakuan Master",
+			"item": [
+				{
+					"name": "Get All Perlakuan Master",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master?page=1&per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "tipe",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "nama_perlakuan",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Perlakuan Master",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_perlakuan\": \"Pemupukan NPK\",\n    \"tipe\": \"pemupukan\",\n    \"deskripsi\": \"Pemberian pupuk NPK untuk pertumbuhan optimal\",\n    \"satuan_default\": \"gram\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master"]
+						}
+					}
+				},
+				{
+					"name": "Get Perlakuan Master by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Perlakuan Master",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama_perlakuan\": \"Pemupukan Organik\",\n    \"deskripsi\": \"Pemberian pupuk organik untuk tanaman\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Perlakuan Master",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master", "summary"]
+						}
+					}
+				},
+				{
+					"name": "Get by Tipe",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/perlakuan-master/tipe/pemupukan",
+							"host": ["{{base_url}}"],
+							"path": ["api", "perlakuan-master", "tipe", "pemupukan"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Jadwal Perlakuan",
+			"item": [
+				{
+					"name": "Get All Jadwal Perlakuan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan?page=1&per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "area_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "tandon_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "perlakuan_id",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Jadwal Perlakuan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tanggal\": \"2024-01-15\",\n    \"minggu_ke\": 1,\n    \"hari_dalam_minggu\": 1,\n    \"area_id\": 1,\n    \"tandon_id\": 1,\n    \"perlakuan_id\": 1,\n    \"dosis\": 100,\n    \"satuan\": \"gram\",\n    \"keterangan\": \"Pemupukan rutin minggu pertama\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan"]
+						}
+					}
+				},
+				{
+					"name": "Get Jadwal Perlakuan by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Jadwal Perlakuan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dosis\": 150,\n    \"keterangan\": \"Update dosis pemupukan\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Jadwal Perlakuan",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get by Month",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/month/2024-01",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "month", "2024-01"]
+						}
+					}
+				},
+				{
+					"name": "Get by Area",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/area/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "area", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get by Perlakuan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/perlakuan/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "perlakuan", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/summary?start_date=2024-01-01&end_date=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "summary"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Rotation Schedule",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/jadwal-perlakuan/rotation-schedule?area_id=1&weeks=4",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jadwal-perlakuan", "rotation-schedule"],
+							"query": [
+								{
+									"key": "area_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "weeks",
+									"value": "4",
+									"disabled": true
+								}
+							]
 						}
 					}
 				}
