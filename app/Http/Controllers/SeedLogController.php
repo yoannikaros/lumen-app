@@ -87,8 +87,10 @@ class SeedLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'create',
-                'description' => 'Menambah data seed log: ' . $data->nama_benih . ' (' . $data->varietas . ')',
+                'action' => 'create',
+                'table_name' => 'seed_logs',
+                'record_id' => $data->id,
+                'details' => 'Menambah data seed log: ' . $data->nama_benih . ' (' . $data->varietas . ')',
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -159,8 +161,10 @@ class SeedLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'update',
-                'description' => 'Mengubah data seed log: ' . $data->nama_benih . ' (' . $data->varietas . ')',
+                'action' => 'update',
+                'table_name' => 'seed_logs',
+                'record_id' => $data->id,
+                'details' => 'Mengubah data seed log: ' . $data->nama_benih . ' (' . $data->varietas . ')',
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -190,8 +194,10 @@ class SeedLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'delete',
-                'description' => 'Menghapus data seed log: ' . $seedName,
+                'action' => 'delete',
+                'table_name' => 'seed_logs',
+                'record_id' => $id,
+                'details' => 'Menghapus data seed log: ' . $seedName,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);

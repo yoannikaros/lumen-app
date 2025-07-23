@@ -93,8 +93,10 @@ class JadwalPerlakuanController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'create',
-                'description' => 'Menambah jadwal perlakuan: ' . $data->perlakuan->nama_perlakuan . ' pada ' . $data->tanggal,
+                'action' => 'create',
+                'table_name' => 'jadwal_perlakuan',
+                'record_id' => $data->id,
+                'details' => 'Menambah jadwal perlakuan: ' . $data->perlakuan->nama_perlakuan . ' pada ' . $data->tanggal,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -165,8 +167,10 @@ class JadwalPerlakuanController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'update',
-                'description' => 'Mengubah jadwal perlakuan: ' . $data->perlakuan->nama_perlakuan . ' pada ' . $data->tanggal,
+                'action' => 'update',
+                'table_name' => 'jadwal_perlakuan',
+                'record_id' => $data->id,
+                'details' => 'Mengubah jadwal perlakuan: ' . $data->perlakuan->nama_perlakuan . ' pada ' . $data->tanggal,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -196,8 +200,10 @@ class JadwalPerlakuanController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'delete',
-                'description' => 'Menghapus jadwal perlakuan: ' . $description,
+                'action' => 'delete',
+                'table_name' => 'jadwal_perlakuan',
+                'record_id' => $id,
+                'details' => 'Menghapus jadwal perlakuan: ' . $description,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);

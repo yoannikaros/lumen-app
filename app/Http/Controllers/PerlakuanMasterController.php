@@ -59,8 +59,10 @@ class PerlakuanMasterController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'create',
-                'description' => 'Menambah data perlakuan master: ' . $data->nama_perlakuan,
+                'action' => 'create',
+                'table_name' => 'perlakuan_master',
+                'record_id' => $data->id,
+                'details' => 'Menambah data perlakuan master: ' . $data->nama_perlakuan,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -120,8 +122,10 @@ class PerlakuanMasterController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'update',
-                'description' => 'Mengubah data perlakuan master: ' . $data->nama_perlakuan,
+                'action' => 'update',
+                'table_name' => 'perlakuan_master',
+                'record_id' => $data->id,
+                'details' => 'Mengubah data perlakuan master: ' . $data->nama_perlakuan,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -160,8 +164,10 @@ class PerlakuanMasterController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'delete',
-                'description' => 'Menghapus data perlakuan master: ' . $nama,
+                'action' => 'delete',
+                'table_name' => 'perlakuan_master',
+                'record_id' => $id,
+                'details' => 'Menghapus data perlakuan master: ' . $nama,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);

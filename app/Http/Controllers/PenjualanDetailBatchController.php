@@ -118,11 +118,13 @@ class PenjualanDetailBatchController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => Auth::id(),
-                'activity' => 'create',
-                'description' => 'Menambah detail penjualan batch: ' . $data->qty_kg . ' kg',
+                'user_id' => $request->auth->id,
+                'action' => 'create',
+                'details' => 'Menambah detail penjualan batch: ' . $data->qty_kg . ' kg',
                 'table_name' => 'penjualan_detail_batch',
-                'record_id' => $data->id
+                'record_id' => $data->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
             ]);
 
             return response()->json([
@@ -207,11 +209,13 @@ class PenjualanDetailBatchController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => Auth::id(),
-                'activity' => 'update',
-                'description' => 'Mengubah detail penjualan batch: ' . $data->qty_kg . ' kg',
+                'user_id' => $request->auth->id,
+                'action' => 'update',
+                'details' => 'Mengubah detail penjualan batch: ' . $data->qty_kg . ' kg',
                 'table_name' => 'penjualan_detail_batch',
-                'record_id' => $data->id
+                'record_id' => $data->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
             ]);
 
             return response()->json([
@@ -241,11 +245,13 @@ class PenjualanDetailBatchController extends Controller
 
             // Log activity
             ActivityLog::create([
-                'user_id' => Auth::id(),
-                'activity' => 'delete',
-                'description' => 'Menghapus detail penjualan batch: ' . $qty . ' kg',
+                'user_id' => $request->auth->id,
+                'action' => 'delete',
+                'details' => 'Menghapus detail penjualan batch: ' . $qty . ' kg',
                 'table_name' => 'penjualan_detail_batch',
-                'record_id' => $id
+                'record_id' => $id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent()
             ]);
 
             return response()->json([

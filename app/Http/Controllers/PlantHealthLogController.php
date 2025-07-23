@@ -76,8 +76,10 @@ class PlantHealthLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'create',
-                'description' => 'Menambah data plant health log: ' . $data->gejala . ' (' . $data->jumlah_tanaman_terdampak . ' tanaman)',
+                'action' => 'create',
+                'table_name' => 'plant_health_log',
+                'record_id' => $data->id,
+                'details' => 'Menambah data plant health log: ' . $data->gejala . ' (' . $data->jumlah_tanaman_terdampak . ' tanaman)',
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -142,8 +144,10 @@ class PlantHealthLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'update',
-                'description' => 'Mengubah data plant health log: ' . $data->gejala . ' (' . $data->jumlah_tanaman_terdampak . ' tanaman)',
+                'action' => 'update',
+                'table_name' => 'plant_health_log',
+                'record_id' => $data->id,
+                'details' => 'Mengubah data plant health log: ' . $data->gejala . ' (' . $data->jumlah_tanaman_terdampak . ' tanaman)',
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);
@@ -173,8 +177,10 @@ class PlantHealthLogController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => $request->auth->id,
-                'activity' => 'delete',
-                'description' => 'Menghapus data plant health log: ' . $description,
+                'action' => 'delete',
+                'table_name' => 'plant_health_log',
+                'record_id' => $id,
+                'details' => 'Menghapus data plant health log: ' . $description,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent')
             ]);

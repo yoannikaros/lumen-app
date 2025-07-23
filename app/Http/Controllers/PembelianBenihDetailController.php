@@ -109,8 +109,8 @@ class PembelianBenihDetailController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => Auth::id(),
-                'activity' => 'create',
-                'description' => 'Menambah detail pembelian benih: ' . $data->nama_benih,
+                'action' => 'create',
+                'details' => 'Menambah detail pembelian benih: ' . $data->nama_benih,
                 'table_name' => 'pembelian_benih_detail',
                 'record_id' => $data->id
             ]);
@@ -183,8 +183,8 @@ class PembelianBenihDetailController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => Auth::id(),
-                'activity' => 'update',
-                'description' => 'Mengubah detail pembelian benih: ' . $data->nama_benih,
+                'action' => 'update',
+                'details' => 'Mengubah detail pembelian benih: ' . $data->nama_benih,
                 'table_name' => 'pembelian_benih_detail',
                 'record_id' => $data->id
             ]);
@@ -217,8 +217,8 @@ class PembelianBenihDetailController extends Controller
             // Log activity
             ActivityLog::create([
                 'user_id' => Auth::id(),
-                'activity' => 'delete',
-                'description' => 'Menghapus detail pembelian benih: ' . $nama_benih,
+                'action' => 'delete',
+                'details' => 'Menghapus detail pembelian benih: ' . $nama_benih,
                 'table_name' => 'pembelian_benih_detail',
                 'record_id' => $id
             ]);
